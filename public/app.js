@@ -1,5 +1,5 @@
 // Configure the deployed Worker URL here, no trailing slash.
-const API_BASE = "https://boah-display-lab.SUBDOMINIO.workers.dev/api";
+const API_BASE = "https://boah-display-lab.studio-gh.workers.dev/api";
 const $ = (s, root=document) => root.querySelector(s);
 const esc = (s="") => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const state = {data:null, active:"todos", editSession:sessionStorage.getItem("boahEditSession")||"", person:localStorage.getItem("boahPerson")||"Gui", busy:false};
