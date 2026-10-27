@@ -9,3 +9,7 @@ database_id = "de81bc22-61ef-4b64-af11-05c8fa6ca9b0"
 
 [vars]
 ALLOWED_ORIGIN = "*"
+
+[assets]
+directory = "./public"
+binding = "ASSETS"
