@@ -38,3 +38,34 @@
 
 /* Accessibility: larger type and clearer task controls */
 body{font-size:16px;line-height:1.65}.display-card h3{font-size:clamp(29px,2.2vw,36px)}.card-subtitle,.card-brief,.next-step{font-size:16px;line-height:1.75}.display-card{padding:28px 30px}.check-row{padding:17px 4px;gap:14px}.check-row input[type=checkbox]{width:20px;height:20px;accent-color:var(--accent)}.check-row span{font-size:16px;line-height:1.55}.check-row small{font-size:13px}.task-status-label{font-size:12px;color:var(--muted)}.task-status{font-size:14px;padding:8px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink)}@media(max-width:600px){.display-card{padding:22px}}
+
+
+/* Readability pass: align card and technical-sheet typography */
+body{font-size:16px;line-height:1.65}
+.display-card .eyebrow{font-size:11px}
+.display-card h3{font-size:34px;line-height:1.15}
+.card-subtitle{font-size:16px;line-height:1.45;margin:6px 0 20px}
+.card-brief{font-size:16px;line-height:1.75;margin-bottom:24px}
+.mini-label{font-size:11px}
+.next-step{font-size:15px;line-height:1.55;margin:6px 0 22px}
+.card-footer{font-size:13px;padding-top:15px}
+.text-button{font-size:14px}
+.status{font-size:11px;padding:6px 10px}
+.check-row{font-size:15px;line-height:1.5;padding:15px 0}
+.check-row small{font-size:13px}
+.filter-row button{font-size:13px}
+.decision-row strong{font-size:15px}
+.decision-row p{font-size:14px;line-height:1.7}
+.decision-row small{font-size:12px}
+.footnote{font-size:12px;line-height:1.6}
+.section-aside{font-size:14px;line-height:1.6}
+.detail-modal{font-size:16px}
+.modal-header h2{font-size:36px;line-height:1.15}
+.modal-header p{font-size:16px;line-height:1.5}
+.detail-section>label{font-size:12px;letter-spacing:1.2px}
+.detail-section p{font-size:16px;line-height:1.7}
+.detail-section small{font-size:13px}
+.detail-section{padding:13px 0}
+.inline-form input,.inline-form button,.add-form input,.add-form textarea,.note-form input,.note-form textarea{font-size:15px}
+@media(max-width:900px){.display-card h3{font-size:30px}.card-subtitle{font-size:15px}.card-brief{font-size:15px}.next-step{font-size:14px}}
+@media(max-width:680px){.display-card h3{font-size:30px}.card-subtitle{font-size:16px}.card-brief{font-size:16px}.next-step{font-size:15px}.detail-modal{padding:19px}.modal-header h2{font-size:32px}}
