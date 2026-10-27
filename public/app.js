@@ -56,7 +56,7 @@ function openDisplay(id) {
  const comments=state.data.comments.filter(c=>c.display_id===id);
  $("#detailTitle").textContent=d.title; $("#detailSubtitle").textContent=d.subtitle;
  $("#detailBody").innerHTML=`
- <div class="detail-section"><label>Status</label><input id="editStatus" value="${esc(d.status)}" ${state.editSession?"":"disabled"}></div>
+ <div class="detail-section"><label>Status</label><input id="editStatus" value="${esc(d.status)}" ></div>
  <div class="detail-section"><label>Brief técnico</label><textarea id="editBrief" rows="3" ${state.editSession?"":"disabled"}>${esc(d.brief)}</textarea></div>
  <div class="detail-section"><label>Requisitos</label><textarea id="editRequirements" rows="3" ${state.editSession?"":"disabled"}>${esc(d.requirements)}</textarea></div>
  <div class="detail-section"><label>Perguntas em aberto</label><textarea id="editQuestions" rows="2" ${state.editSession?"":"disabled"}>${esc(d.open_questions)}</textarea></div>
@@ -64,17 +64,17 @@ function openDisplay(id) {
  <div class="detail-section"><label>Comentários</label>${comments.map(c=>`<p class="comment"><b>${esc(c.author)}:</b> ${esc(c.body)}</p>`).join("")||"<p class='muted'>Sem comentários ainda.</p>"}
  <form id="commentForm" class="inline-form"><input id="commentText" placeholder="Deixe um comentário…" required><button class="button button-dark" ${state.editSession?"":"disabled"}>Enviar</button></form></div>
  `;
- $("#saveDisplay").hidden=!state.editSession;
+ $("#saveDisplay").hidden=false;
  $("#detailModal").showModal();
  $("#commentForm").addEventListener("submit",async e=>{e.preventDefault();try{await api("/comments",{method:"POST",body:JSON.stringify({display_id:id,author:state.person,body:$("#commentText").value})});await load(true);openDisplay(id)}catch(err){toast(err.message)}});
  $("#saveDisplay").onclick=async()=>{try{await api("/displays",{method:"PATCH",body:JSON.stringify({id,status:$("#editStatus").value,brief:$("#editBrief").value,requirements:$("#editRequirements").value,open_questions:$("#editQuestions").value,actor:state.person})});$("#detailModal").close();await load(true);toast("Display atualizado.")}catch(e){toast(e.message)}};
 }
-async function startEditing() {
- if(state.editSession){state.editSession="";sessionStorage.removeItem("boahEditSession");$("#editButton").textContent="Entrar para editar";$("#editButton").classList.remove("active");load(true);toast("Modo de edição encerrado.");return}
- const pin=prompt("Digite o PIN compartilhado de edição:");
- if(!pin)return;
- try{const r=await api("/session",{method:"POST",body:JSON.stringify({pin})});state.editSession=r.session;sessionStorage.setItem("boahEditSession",r.session);$("#editButton").textContent="Sair da edição";$("#editButton").classList.add("active");render();toast("Modo de edição ativado.");}
- catch(e){toast(e.message)}
+function startEditing() {
+ state.editSession="open-link";
+ $("#editButton").textContent="Edição liberada";
+ $("#editButton").classList.add("active");
+ render();
+ toast("Qualquer pessoa com este link pode editar.");
 }
 document.addEventListener("DOMContentLoaded",()=>{
  $("#personSelect").value=state.person;
