@@ -1,0 +1,11 @@
+name = "boah-display-lab"
+main = "worker/src/index.ts"
+compatibility_date = "2026-10-27"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "boah-display-lab"
+database_id = "SUBSTITUA_PELO_DATABASE_ID_DO_D1"
+
+[vars]
+ALLOWED_ORIGIN = "*"
