@@ -69,3 +69,16 @@ body{font-size:16px;line-height:1.65}
 .inline-form input,.inline-form button,.add-form input,.add-form textarea,.note-form input,.note-form textarea{font-size:15px}
 @media(max-width:900px){.display-card h3{font-size:30px}.card-subtitle{font-size:15px}.card-brief{font-size:15px}.next-step{font-size:14px}}
 @media(max-width:680px){.display-card h3{font-size:30px}.card-subtitle{font-size:16px}.card-brief{font-size:16px}.next-step{font-size:15px}.detail-modal{padding:19px}.modal-header h2{font-size:32px}}
+
+
+/* Match the visual-direction / upper-menu typography to the readable project cards below */
+.visual-intro>p:not(.eyebrow){font-size:16px;line-height:1.75}
+.visual-intro h2{font-size:clamp(34px,4vw,48px);line-height:1.15}
+.visual-mosaic figcaption span{font-size:11px;letter-spacing:1.1px}
+.visual-mosaic figcaption strong{font-size:17px;line-height:1.45}
+.process-card h3,.development-gallery .process-card h3{font-size:21px;line-height:1.35}
+.process-card p,.process-card .process-copy,.process-card figcaption{font-size:15px;line-height:1.7}
+.process-card .eyebrow,.process-card .mini-label,.process-card .status{font-size:11px}
+.development-gallery .section-aside{font-size:14px;line-height:1.65}
+@media(max-width:900px){.visual-intro>p:not(.eyebrow){font-size:15px}.visual-mosaic figcaption strong{font-size:16px}.process-card h3{font-size:19px}.process-card p,.process-card .process-copy{font-size:14px}}
+@media(max-width:680px){.visual-intro>p:not(.eyebrow){font-size:16px}.visual-mosaic figcaption strong{font-size:16px}.process-card h3{font-size:20px}.process-card p,.process-card .process-copy{font-size:15px}}
