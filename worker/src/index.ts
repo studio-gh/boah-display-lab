@@ -49,6 +49,7 @@ const now = () => new Date().toISOString();
 
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
+    try { await env.DB.prepare("ALTER TABLE checklist_items ADD COLUMN status TEXT NOT NULL DEFAULT 'Não iniciado'").run(); } catch { /* status column already exists */ }
     const url = new URL(request.url);
     const origin = request.headers.get("Origin") || "*";
     const allowedOrigin = env.ALLOWED_ORIGIN || origin;
@@ -101,9 +102,17 @@ export default {
         return json({ ok: true, id: res.meta.last_row_id }, 201, headers);
       }
       if (url.pathname === "/api/checklist" && request.method === "PATCH") {
-        const b = await request.json() as { id?: number; done?: boolean };
+        const b = await request.json() as { id?: number; done?: boolean; status?: string };
         if (!Number.isInteger(b.id)) return json({ error: "Item inválido" }, 400, headers);
-        await env.DB.prepare("UPDATE checklist_items SET done=?, updated_at=datetime('now') WHERE id=?").bind(b.done ? 1 : 0, b.id).run();
+        const allowed = ["Não iniciado","Em andamento","Aguardando","Concluído"];
+        if (typeof b.status === "string") {
+          if (!allowed.includes(b.status)) return json({ error: "Status inválido" }, 400, headers);
+          await env.DB.prepare("UPDATE checklist_items SET status=?, done=?, updated_at=datetime('now') WHERE id=?").bind(b.status, b.status === "Concluído" ? 1 : 0, b.id).run();
+          await env.DB.prepare("INSERT INTO activity_log(actor,action,detail) VALUES(?,?,?)").bind("Equipe", "Status da tarefa atualizado", "Checklist #" + b.id + ": " + b.status).run();
+          return json({ ok: true }, 200, headers);
+        }
+        const nextStatus = b.done ? "Concluído" : "Em andamento";
+        await env.DB.prepare("UPDATE checklist_items SET done=?, status=?, updated_at=datetime('now') WHERE id=?").bind(b.done ? 1 : 0, nextStatus, b.id).run();
         await env.DB.prepare("INSERT INTO activity_log(actor,action,detail) VALUES(?,?,?)").bind("Equipe", b.done ? "Tarefa concluída" : "Tarefa reaberta", "Checklist #" + b.id).run();
         return json({ ok: true }, 200, headers);
       }
