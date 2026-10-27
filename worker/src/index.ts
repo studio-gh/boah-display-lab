@@ -63,11 +63,9 @@ export default {
         return json({ session: await makeSession(env.SESSION_SECRET) }, 200, headers);
       }
 
-      if (url.pathname.startsWith("/api/") && request.method !== "GET" &&
-          !(await validSession(request.headers.get("X-Edit-Session"), env.SESSION_SECRET || ""))) {
-        return json({ error: "Entre no modo de edição para continuar." }, 401, headers);
-      }
-
+      // This is a private-by-link team workspace. Writes are open to anyone with the URL.
+      // Do not use for sensitive information; anyone who discovers the link can edit.
+      
       if (url.pathname === "/api/health" && request.method === "GET") return json({ ok: true, service: "boah-display-lab" }, 200, headers);
       if (url.pathname === "/api/summary" && request.method === "GET") {
         const [displays, decisions, checklist, comments, notes, activity] = await Promise.all([
