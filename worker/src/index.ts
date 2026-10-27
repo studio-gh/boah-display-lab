@@ -1,5 +1,6 @@
 export interface Env {
   DB: D1Database;
+  ASSETS: Fetcher;
   EDIT_PIN: string;
   SESSION_SECRET: string;
   ALLOWED_ORIGIN?: string;
@@ -54,6 +55,7 @@ export default {
     const headers = cors(allowedOrigin);
     if (request.method === "OPTIONS") return new Response(null, { status: 204, headers });
     try {
+      if (!url.pathname.startsWith("/api/")) return env.ASSETS.fetch(request);
       if (url.pathname === "/api/session" && request.method === "POST") {
         const body = await request.json() as { pin?: string };
         if (!env.EDIT_PIN || !env.SESSION_SECRET || body.pin !== env.EDIT_PIN) return json({ error: "PIN incorreto" }, 401, headers);
