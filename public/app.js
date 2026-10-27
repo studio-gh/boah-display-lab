@@ -57,12 +57,12 @@ function openDisplay(id) {
  $("#detailTitle").textContent=d.title; $("#detailSubtitle").textContent=d.subtitle;
  $("#detailBody").innerHTML=`
  <div class="detail-section"><label>Status</label><input id="editStatus" value="${esc(d.status)}" ></div>
- <div class="detail-section"><label>Brief técnico</label><textarea id="editBrief" rows="3" ${state.editSession?"":"disabled"}>${esc(d.brief)}</textarea></div>
- <div class="detail-section"><label>Requisitos</label><textarea id="editRequirements" rows="3" ${state.editSession?"":"disabled"}>${esc(d.requirements)}</textarea></div>
- <div class="detail-section"><label>Perguntas em aberto</label><textarea id="editQuestions" rows="2" ${state.editSession?"":"disabled"}>${esc(d.open_questions)}</textarea></div>
+ <div class="detail-section"><label>Brief técnico</label><textarea id="editBrief" rows="3" >${esc(d.brief)}</textarea></div>
+ <div class="detail-section"><label>Requisitos</label><textarea id="editRequirements" rows="3" >${esc(d.requirements)}</textarea></div>
+ <div class="detail-section"><label>Perguntas em aberto</label><textarea id="editQuestions" rows="2" >${esc(d.open_questions)}</textarea></div>
  <div class="detail-section"><label>Checklist</label>${tasks.map(t=>`<p>${t.done?"✓":"○"} ${esc(t.label)} <small>· ${esc(t.owner)}</small></p>`).join("")}</div>
  <div class="detail-section"><label>Comentários</label>${comments.map(c=>`<p class="comment"><b>${esc(c.author)}:</b> ${esc(c.body)}</p>`).join("")||"<p class='muted'>Sem comentários ainda.</p>"}
- <form id="commentForm" class="inline-form"><input id="commentText" placeholder="Deixe um comentário…" required><button class="button button-dark" ${state.editSession?"":"disabled"}>Enviar</button></form></div>
+ <form id="commentForm" class="inline-form"><input id="commentText" placeholder="Deixe um comentário…" required><button class="button button-dark" >Enviar</button></form></div>
  `;
  $("#saveDisplay").hidden=false;
  $("#detailModal").showModal();
